@@ -23,7 +23,7 @@ size_t ValetParking::totalStallSpaces()
 // return the maximum number of cars that all stalls can accommodate
 {
 
-   return _numberofstalls *_stallcapacity;    // add by Chris Huynh
+   return _numberofstalls *_stallcapacity;    // written by Chris Huynh
 
 }
 
@@ -34,9 +34,9 @@ size_t ValetParking::carsInStalls()
     size_t totalCars = 0;
     for (const auto&s: _parkingstall)
     {
-        totalCars += s.size();  // add by Chris Huynh
+        totalCars += s.size();  // written by Chris Huynh
     }
-    return totalCars;           // add by Chris Huynh
+    return totalCars;           // written by Chris Huynh
 
 }
 
@@ -44,7 +44,7 @@ size_t ValetParking::carsInCheckOut()
 // return the number of cars waiting in checkout line to pay before exiting the lot.
 {
 
-    return _checkout->size();     // add by Chris Huynh
+    return _checkout->size();     // written by Chris Huynh
 
 }
 
@@ -55,9 +55,9 @@ size_t ValetParking::availableStallSpaces()
     size_t availableSpaces = 0;
     for (const auto&s: _parkingstall)
     {
-        availableSpaces += (_stallcapacity - s.size());    // add by Chris Huynh
+        availableSpaces += (_stallcapacity - s.size());    // written by Chris Huynh
     }
-    return availableSpaces;                // add by Chris Huynh
+    return availableSpaces;                // written by Chris Huynh
 
 }
 
@@ -80,7 +80,7 @@ size_t ValetParking::pay()
     _checkout->pop();
     return ticketNo;
     
-    // add by Chris Huynh
+    // written by Chris Huynh
 
 }
 
@@ -88,7 +88,7 @@ double ValetParking::totalPaid()
 // return the total amount customers have paid so far based on the number of cars exited the lot.
 {
 
-    return _paid;   // add by Chris Huynh
+    return _paid;   // written by Chris Huynh
 
 }
 
@@ -96,7 +96,9 @@ bool ValetParking::parkingEmpty()
 // return true if all stalls and checkout queue are empty
 {
 
-    // ADD YOUR CODE HERE
+    return StallEmpty() && QueueEmpty();
+    
+    // written by Chris Huynh
 
 }
 
@@ -104,9 +106,9 @@ bool ValetParking::parkingFull()
 // return true if all stalls and checkout queue are full
 {
 
-    return StallEmpty() && QueueEmpty();
+    return StallFull() && QueueFull();
     
-    // add by Chris Huynh
+    // written by Chris Huynh
 
 }
 
@@ -114,9 +116,10 @@ bool ValetParking::queueEmpty()
 // return true if the checkout queue is empty
 {
 
-   return StallFull() && QueueFull();
+   return _checkout->empty();
     
-    // add by Chris Huynh
+    
+    // written by Chris Huynh
 
 }
 
@@ -127,7 +130,7 @@ bool ValetParking::queueFull()
     
     return _checkout->size() == _queuecapacity;
     
-    // add by Chris Huynh
+    // written by Chris Huynh
 
 }
 
@@ -136,7 +139,7 @@ bool ValetParking::stallEmpty()
 {
      return _checkout->empty();
     
-    // add by Chris Huynh
+    // written by Chris Huynh
 
 
 }
@@ -152,7 +155,7 @@ bool ValetParking::stallFull()
     }
     return true;
     
-    // add by Chris Huynh
+   // written by Chris Huynh
 
 }
 
@@ -161,7 +164,7 @@ size_t ValetParking::getNextTicket()
 {
     return ++ _currentticket;
     
-    // add by Chris Huynh
+    // written by Chris Huynh
 
     
 
@@ -183,7 +186,7 @@ size_t ValetParking::checkIn()
     }
     return 0;
     
-    // add by Chris Huynh
+    // written by Chris Huynh
 
 }
 
@@ -202,7 +205,7 @@ size_t ValetParking::stallNumber( size_t ticket)
                 return i + 1;
             tmp.pop();
             
-            // add by Chris Huynh
+            // written by Chris Huynh
 
 }
 
@@ -217,6 +220,6 @@ bool ValetParking::checkOut( size_t stallnumber, size_t ticket)
     _checkout->push(ticket);
     return true;
             
-            // add by Chris Huynh
+           // written by Chris Huynh
 
 }
