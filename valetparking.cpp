@@ -202,15 +202,11 @@ bool ValetParking::checkOut( size_t stallnumber, size_t ticket)
 // On success return true.
 {
 
-    for (size_t i = 0; i < _numberofstalls; i++)
-    {
-        auto tmp = _parkingstall[i];
-        while (!tmp.empty())
-        {
-            size_t ticketNumber == tmp.top();
-            if (ticketNumber == ticket)
-                return i + 1;
-            tmp.pop();
+    if (QueueFull())
+        return false;
+    //_parkingstall[stallnumber-1].
+    _checkout->push(ticket);
+    return true;
             
             // add by Chris Huynh
 
