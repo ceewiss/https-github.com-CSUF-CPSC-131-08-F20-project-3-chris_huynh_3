@@ -137,10 +137,15 @@ bool ValetParking::queueFull()
 bool ValetParking::stallEmpty()
 // return true if all stalls are empty
 {
-     return _checkout->empty();
     
-    // written by Chris Huynh
-
+    for (const auto&s : _parkingstall)
+    {
+        if (!s.empty())
+            return false;
+    }
+    return true;
+    
+   // written by Chris Huynh
 
 }
 
@@ -150,7 +155,7 @@ bool ValetParking::stallFull()
 
     for (const auto&s : _parkingstall)
     {
-        if (!s.empty())
+        if (s.size() != _stallcapacity)
             return false;
     }
     return true;
