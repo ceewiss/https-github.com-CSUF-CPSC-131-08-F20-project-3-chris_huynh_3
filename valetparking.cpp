@@ -17,16 +17,13 @@ ValetParking::ValetParking( size_t numberofstalls, size_t stallcapacity,
 // DESTRUCTOR
 ValetParking::~ValetParking()
 {
-
-    // ADD YOUR CODE HERE
-
 }
 
 size_t ValetParking::totalStallSpaces()
 // return the maximum number of cars that all stalls can accommodate
 {
 
-    // ADD YOUR CODE HERE
+   return _numberofstalls *_stallcapacity;    // add by Chris Huynh
 
 }
 
@@ -34,7 +31,12 @@ size_t ValetParking::carsInStalls()
 // return the number of cars parked in all the stalls
 {
 
-    // ADD YOUR CODE HERE
+    size_t totalCars = 0;
+    for (const auto&s: _parkingstall)
+    {
+        totalCars += s.size();  // add by Chris Huynh
+    }
+    return totalCars;           // add by Chris Huynh
 
 }
 
@@ -42,7 +44,7 @@ size_t ValetParking::carsInCheckOut()
 // return the number of cars waiting in checkout line to pay before exiting the lot.
 {
 
-    // ADD YOUR CODE HERE
+    return _checkout->size();     // add by Chris Huynh
 
 }
 
@@ -50,7 +52,12 @@ size_t ValetParking::availableStallSpaces()
 // return the number of available parking spaces in all the stalls
 {
 
-    // ADD YOUR CODE HERE
+    size_t availableSpaces = 0;
+    for (const auto&s: _parkingstall)
+    {
+        availableSpaces += (_stallcapacity - s.size());    // add by Chris Huynh
+    }
+    return availableSpaces;                // add by Chris Huynh
 
 }
 
@@ -58,7 +65,7 @@ double ValetParking::totalSales()
 // return the total amount based on the number of tickets issued
 {
 
-    // ADD YOUR CODE HERE
+    return _currentticket * _fee;       // add by Chris Huynh
 
 }
 
@@ -66,7 +73,14 @@ size_t ValetParking::pay()
 // remove and return the ticket# of car at front of the checkout queue, and the fee is collected.
 {
 
-    // ADD YOUR CODE HERE
+    if (_checkout->empty())
+        return 0;
+    _paid += _fee;
+    size_t ticketNo = _checkout->front();
+    _checkout->pop();
+    return ticketNo;
+    
+    // add by Chris Huynh
 
 }
 
@@ -74,7 +88,7 @@ double ValetParking::totalPaid()
 // return the total amount customers have paid so far based on the number of cars exited the lot.
 {
 
-    // ADD YOUR CODE HERE
+    return _paid;   // add by Chris Huynh
 
 }
 
@@ -90,7 +104,9 @@ bool ValetParking::parkingFull()
 // return true if all stalls and checkout queue are full
 {
 
-    // ADD YOUR CODE HERE
+    return StallEmpty() && QueueEmpty();
+    
+    // add by Chris Huynh
 
 }
 
@@ -98,7 +114,9 @@ bool ValetParking::queueEmpty()
 // return true if the checkout queue is empty
 {
 
-    // ADD YOUR CODE HERE
+   return StallFull() && QueueFull();
+    
+    // add by Chris Huynh
 
 }
 
@@ -106,15 +124,20 @@ bool ValetParking::queueFull()
 // return true if the checkout queue is full
 {
 
-    // ADD YOUR CODE HERE
+    
+    return _checkout->size() == _queuecapacity;
+    
+    // add by Chris Huynh
 
 }
 
 bool ValetParking::stallEmpty()
 // return true if all stalls are empty
 {
+     return _checkout->empty();
+    
+    // add by Chris Huynh
 
-    // ADD YOUR CODE HERE
 
 }
 
@@ -122,15 +145,25 @@ bool ValetParking::stallFull()
 // return true if all stalls are full
 {
 
-    // ADD YOUR CODE HERE
+    for (const auto&s : _parkingstall)
+    {
+        if (!s.empty())
+            return false;
+    }
+    return true;
+    
+    // add by Chris Huynh
 
 }
 
 size_t ValetParking::getNextTicket()
 // return the next ticket number to issue to customer
 {
+    return ++ _currentticket;
+    
+    // add by Chris Huynh
 
-    // ADD YOUR CODE HERE
+    
 
 }
 
@@ -138,7 +171,10 @@ size_t ValetParking::checkIn()
 // on success return stall# (index-1 base), on failure return 0.
 {
 
-    // ADD YOUR CODE HERE
+   if (StallFull())
+       return 0;
+    size_t ticietNo = GetNextTicket();
+    for (size_t i=0; i < _numberofstalls; i++)
 
 }
 
@@ -146,7 +182,18 @@ size_t ValetParking::stallNumber( size_t ticket)
 // return the stall number (index-1 base) in which the ticket number resides
 {
 
-    // ADD YOUR CODE HERE
+   
+    for (size_t i = 0; i < _numberofstalls; i++)
+    {
+        auto tmp = _parkingstall[i];
+        while (!tmp.empty())
+        {
+            size_t ticketNumber == tmp.top();
+            if (ticketNumber == ticket)
+                return i + 1;
+            tmp.pop();
+            
+            // add by Chris Huynh
 
 }
 
@@ -155,6 +202,16 @@ bool ValetParking::checkOut( size_t stallnumber, size_t ticket)
 // On success return true.
 {
 
-    // ADD YOUR CODE HERE
+    for (size_t i = 0; i < _numberofstalls; i++)
+    {
+        auto tmp = _parkingstall[i];
+        while (!tmp.empty())
+        {
+            size_t ticketNumber == tmp.top();
+            if (ticketNumber == ticket)
+                return i + 1;
+            tmp.pop();
+            
+            // add by Chris Huynh
 
 }
