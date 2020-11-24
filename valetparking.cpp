@@ -175,6 +175,15 @@ size_t ValetParking::checkIn()
        return 0;
     size_t ticietNo = GetNextTicket();
     for (size_t i=0; i < _numberofstalls; i++)
+    {
+        if (_parkingstall[i].size() == _stallcapacity)
+            continue;
+        _parkingstall[i].push(ticket.No);
+        return i + 1;
+    }
+    return 0;
+    
+    // add by Chris Huynh
 
 }
 
