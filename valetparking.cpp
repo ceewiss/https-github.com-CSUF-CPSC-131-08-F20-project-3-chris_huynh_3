@@ -128,7 +128,7 @@ bool ValetParking::queueFull()
 {
 
     
-    return _checkout->size() == _queuecapacity;
+    return checkout->size() == queuecapacity;
     
     // written by Chris Huynh
 
@@ -140,7 +140,7 @@ bool ValetParking::stallEmpty()
     
     for (const auto&s : _parkingstall)
     {
-        if (!s.empty())
+        if (s.empty())
             return false;
     }
     return true;
